@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.10)
+project(Rasterizer)
+add_definitions(-DMSAA)
+set(CMAKE_CXX_STANDARD 17)
+
+find_package(Eigen3 CONFIG REQUIRED)
+if (Eigen3_FOUND)
+    message("find Eignen3=${toml11_VERSION}")
+endif ()
+find_package(OpenCV CONFIG REQUIRED)
+if(OpenCV_FOUND)
+    message("find Opencv")
+endif()
+include(CTest)
+enable_testing()
+
+add_executable(Rasterizer main.cpp rasterizer.hpp rasterizer.cpp global.hpp Triangle.hpp Triangle.cpp Texture.hpp Texture.cpp Shader.hpp OBJ_Loader.h)
+
+target_link_libraries(Rasterizer PRIVATE Eigen3::Eigen)
+target_link_libraries(Rasterizer PRIVATE ${OpenCV_LIBS})
+include(CPack)
